@@ -10,11 +10,27 @@
     - geerlingguy.docker
     - prometheus.prometheus.node_exporter
   tasks:
-    - name: Pasang awscli
+    - name: Pasang unzip
       apt:
-        name: awscli
+        name: unzip
         state: present
         update_cache: yes
+
+    - name: Muat turun pemasang AWS CLI v2
+      get_url:
+        url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+        dest: /tmp/awscliv2.zip
+
+    - name: Nyahzip pemasang AWS CLI v2
+      unarchive:
+        src: /tmp/awscliv2.zip
+        dest: /tmp
+        remote_src: yes
+
+    - name: Pasang AWS CLI v2
+      command: /tmp/aws/install
+      args:
+        creates: /usr/local/bin/aws
 
     - name: Log masuk ke ECR
       shell: >
