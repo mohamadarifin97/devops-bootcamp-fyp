@@ -1,0 +1,25 @@
+services:
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana
+    volumes:
+      - grafana-data:/var/lib/grafana
+    restart: unless-stopped
+
+  # sambungan keluar sahaja, tiada port masuk dibuka pada monitoring server.
+  # ingress rule (monitoring.sendiri.asia -> http://grafana:3000) ditetapkan
+  # dalam Cloudflare Zero Trust dashboard bagi tunnel ini.
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate run --token ${TUNNEL_TOKEN}
+    restart: unless-stopped
+    depends_on:
+      - grafana
+
+volumes:
+  grafana-data:

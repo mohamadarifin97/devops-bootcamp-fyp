@@ -1,0 +1,38 @@
+- name: Sediakan web server
+  hosts: web
+  become: true
+  vars:
+    docker_users: [ubuntu]
+    aws_region: ap-southeast-1
+    # ecr_repository_url dibekalkan oleh /etc/devops-fyp/secrets.yml
+    # (dijana oleh Terraform, -e @/etc/devops-fyp/secrets.yml)
+  roles:
+    - geerlingguy.docker
+    - prometheus.prometheus.node_exporter
+  tasks:
+    - name: Pasang awscli
+      apt:
+        name: awscli
+        state: present
+        update_cache: yes
+
+    - name: Log masuk ke ECR
+      shell: >
+        aws ecr get-login-password --region {{ aws_region }}
+        | docker login --username AWS --password-stdin {{ ecr_repository_url.split('/')[0] }}
+      changed_when: true
+
+    - name: Tarik image aplikasi terkini
+      command: docker pull {{ ecr_repository_url }}:latest
+      changed_when: true
+
+    - name: Hentikan container lama (jika ada)
+      command: docker rm -f ship
+      failed_when: false
+      changed_when: false
+
+    - name: Naikkan container aplikasi
+      command: >
+        docker run -d --name ship --restart unless-stopped
+        -p 80:80 {{ ecr_repository_url }}:latest
+      changed_when: true
