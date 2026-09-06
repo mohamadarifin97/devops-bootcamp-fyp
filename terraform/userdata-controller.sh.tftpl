@@ -1,6 +1,6 @@
 #!/bin/bash
 apt-get update
-apt-get install -y ansible git awscli
+apt-get install -y ansible-core git
 
 install -d -m 700 -o ubuntu -g ubuntu /home/ubuntu/.ssh
 cat > /home/ubuntu/.ssh/id_ed25519 <<'KEY'
@@ -29,9 +29,10 @@ chown ubuntu:ubuntu /home/ubuntu/inventory.ini
 # pembolehubah sulit (token Cloudflare Tunnel) — luar repo git supaya
 # tidak tertimpa oleh git clone/pull, hantar semasa ansible-playbook dengan
 # -e @/etc/devops-fyp/secrets.yml
-install -d -m 700 /etc/devops-fyp
+install -d -m 700 -o ubuntu -g ubuntu /etc/devops-fyp
 cat > /etc/devops-fyp/secrets.yml <<EOF
 cloudflare_tunnel_token: "${cloudflare_tunnel_token}"
 ecr_repository_url: "${ecr_repository_url}"
 EOF
 chmod 600 /etc/devops-fyp/secrets.yml
+chown ubuntu:ubuntu /etc/devops-fyp/secrets.yml
