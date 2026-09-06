@@ -1,0 +1,17 @@
+# terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+crash.log
+
+# ansible
+*.retry
+inventory.ini
+
+# secrets / keys
+.env
+**/.ssh/id_*
+**/.ssh/*_id_*
+
+.DS_Store

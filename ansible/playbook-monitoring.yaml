@@ -1,0 +1,35 @@
+- name: Naikkan stack pemantauan
+  hosts: monitoring
+  become: true
+  vars:
+    docker_users: [ubuntu]
+    # cloudflare_tunnel_token dibekalkan oleh /etc/devops-fyp/secrets.yml
+    # (dijana oleh Terraform, -e @/etc/devops-fyp/secrets.yml)
+  roles:
+    - geerlingguy.docker
+  tasks:
+    - name: Cipta folder stack
+      file:
+        path: /opt/monitoring
+        state: directory
+
+    - name: Hantar prometheus.yaml
+      copy:
+        src: prometheus.yaml
+        dest: /opt/monitoring/prometheus.yaml
+
+    - name: Hantar compose.yaml
+      copy:
+        src: compose.yaml
+        dest: /opt/monitoring/compose.yaml
+
+    - name: Tulis token Cloudflare Tunnel
+      copy:
+        content: "TUNNEL_TOKEN={{ cloudflare_tunnel_token }}\n"
+        dest: /opt/monitoring/.env
+        mode: "0600"
+
+    - name: Naikkan container
+      command: docker compose up -d
+      args:
+        chdir: /opt/monitoring
