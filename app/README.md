@@ -7,11 +7,14 @@ Dockerfile multi-stage yang klon [Infratify/ship](https://github.com/Infratify/s
 
 ## Bina dan tolak ke ECR
 
+EC2 (`t3.micro`) berjalan atas amd64 — jika bina di Mac Apple Silicon, `--platform
+linux/amd64` WAJIB supaya image tidak gagal jalan dengan `exec format error`.
+
 ```bash
 aws ecr get-login-password --region ap-southeast-1 \
   | docker login --username AWS --password-stdin <account-id>.dkr.ecr.ap-southeast-1.amazonaws.com
 
-docker build -t devops-bootcamp/final-project-arifin app/
+docker build --platform linux/amd64 -t devops-bootcamp/final-project-arifin app/
 
 docker tag devops-bootcamp/final-project-arifin:latest \
   <account-id>.dkr.ecr.ap-southeast-1.amazonaws.com/devops-bootcamp/final-project-arifin:latest
