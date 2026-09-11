@@ -7,11 +7,6 @@ data "aws_ami" "ubuntu" {
     values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
   }
 }
-
-# Token Cloudflare Tunnel dibuat manual dalam Zero Trust dashboard, disimpan
-# dahulu dalam SSM Parameter Store sebelum `terraform apply`:
-#   aws ssm put-parameter --name /devops-bootcamp-fyp/tunnel-token \
-#     --type SecureString --value "<token>"
 data "aws_ssm_parameter" "tunnel_token" {
   name = "/devops-bootcamp-fyp/tunnel-token"
 }

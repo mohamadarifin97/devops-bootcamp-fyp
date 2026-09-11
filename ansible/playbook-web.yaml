@@ -4,8 +4,6 @@
   vars:
     docker_users: [ubuntu]
     aws_region: ap-southeast-1
-    # ecr_repository_url dibekalkan oleh /etc/devops-fyp/secrets.yml
-    # (dijana oleh Terraform, -e @/etc/devops-fyp/secrets.yml)
   roles:
     - geerlingguy.docker
     - prometheus.prometheus.node_exporter

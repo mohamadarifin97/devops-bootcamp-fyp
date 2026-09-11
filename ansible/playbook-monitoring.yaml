@@ -3,8 +3,6 @@
   become: true
   vars:
     docker_users: [ubuntu]
-    # cloudflare_tunnel_token dibekalkan oleh /etc/devops-fyp/secrets.yml
-    # (dijana oleh Terraform, -e @/etc/devops-fyp/secrets.yml)
   roles:
     - geerlingguy.docker
   tasks:

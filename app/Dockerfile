@@ -1,5 +1,3 @@
-# Multi-stage: bina microsite Vite/Three.js dari Infratify/ship, sajikan
-# hasil static melalui nginx.
 FROM node:22-alpine AS builder
 RUN apk add --no-cache git
 WORKDIR /src

@@ -13,14 +13,12 @@ module "public_sg" {
       from_port   = 80
       to_port     = 80
     }
-    # hanya monitoring server (10.0.0.136) boleh scrape node_exporter
     node_exporter = {
       cidr_ipv4   = "10.0.0.136/32"
       ip_protocol = "tcp"
       from_port   = 9100
       to_port     = 9100
     }
-    # ssh dari controller (dan mana-mana host lain dalam VPC)
     ssh = {
       cidr_ipv4   = "10.0.0.0/24"
       ip_protocol = "tcp"
