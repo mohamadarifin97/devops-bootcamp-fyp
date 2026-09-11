@@ -1,8 +1,4 @@
-# devops-bootcamp-fyp
-
-Final project DevOps Bootcamp — VPC AWS, tiga server (web / Ansible controller /
-monitoring), aplikasi disajikan sebagai container dari ECR, stack pemantauan
-Prometheus + Grafana, dan dua subdomain Cloudflare untuk akses awam.
+# FINAL PROJECT DEVOPS BOOTCAMP
 
 - **URL aplikasi:** https://web.sendiri.asia
 - **URL monitoring:** https://monitoring.sendiri.asia
