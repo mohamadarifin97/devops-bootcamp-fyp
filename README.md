@@ -1,4 +1,4 @@
-# FINAL PROJECT DEVOPS BOOTCAMPs
+# FINAL PROJECT DEVOPS BOOTCAMP
 
 - **URL aplikasi:** https://web.sendiri.asia
 - **URL monitoring:** https://monitoring.sendiri.asia
