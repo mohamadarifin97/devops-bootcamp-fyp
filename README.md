@@ -2,7 +2,7 @@
 
 - **URL aplikasi:** https://web.sendiri.asia
 - **URL monitoring:** https://monitoring.sendiri.asia
-- **URL repo:** https://github.com/mohamadarifin97/devops-bootcamp-fyp
+- **URL repo:** https://github.com/mohamadarifin97/devops-bootcamp-fyp/
 
 ## Struktur projek
 
